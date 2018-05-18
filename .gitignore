@@ -1,0 +1,8 @@
+*.dll
+*.exe
+*.pdb
+*.obj
+\obj
+SlickgridDragDrop/WebApplication1/bin/
+SlickgridDragDrop/WebApplication1/Web.Debug.config
+SlickgridDragDrop/WebApplication1/Web.Release.config

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-ui-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.event.drag.js"></script>
+    <script src="~/Scripts/jquery.event.drop-2.2.js"></script>
+    <script src="~/Scripts/SlickGrid/slick.core.js"></script>
+    <script src="~/Scripts/SlickGrid/Plugins/slick.cellrangeselector.js"></script>
+    <script src="~/Scripts/SlickGrid/Plugins/slick.cellselectionmodel.js"></script>
+    <script src="~/Scripts/SlickGrid/Plugins/slick.rowselectionmodel.js"></script>
+    <script src="~/Scripts/SlickGrid/Plugins/slick.rowmovemanager.js"></script>
+    <script src="~/Scripts/SlickGrid/slick.formatters.js"></script>
+    <script src="~/Scripts/SlickGrid/slick.editors.js"></script>
+    <script src="~/Scripts/SlickGrid/slick.grid.js"></script>
+</head>
+<body>
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
