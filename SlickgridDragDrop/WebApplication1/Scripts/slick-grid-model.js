@@ -209,6 +209,10 @@
         right = data2.slice(insertBefore, data2.length);
         rows.sort(function (a, b) { return a - b; });
         for (var i = 0; i < rows.length; i++) {
+            var indent = data2[insertBefore].parent ? data2[insertBefore].indent : data2[insertBefore].indent + 1;
+            var parent = data2[insertBefore].parent ? data2[insertBefore].parent : insertBefore;
+            data2[rows[i]].indent = indent;
+            data2[rows[i]].parent = parent;
             extractedRows.push(data2[rows[i]]);
         }
 
@@ -287,6 +291,7 @@
             return;
         }
 
+        grid.setSelectedRows([]);
         dd.helper.remove();
     });
     $.drop({ mode: "mouse" });
@@ -310,36 +315,38 @@
     });
     var bindEvents = function () {
         $("#myGrid2 .grid-canvas")
-            .on("dropstart", '.parentRow', function (e, dd) {
+            .on("dropstart", '.slick-cell', function (e, dd) {
                 if (dd.mode !== 'dragRow') {
                     return;
                 }
 
                 console.log('yellow');
             })
-            .on("dropend", '.parentRow', function (e, dd) {
+            .on("dropend", '.slick-cell', function (e, dd) {
                 if (dd.mode !== 'dragRow') {
                     return;
                 }
 
                 console.log('pink');
             })
-            .on("drop", '.parentRow', function (e, dd) {
+            .on("drop", '.slick-cell', function (e, dd) {
                 if (dd.mode !== 'dragRow') {
                     return;
                 }
 
                 console.log("Drop in: " + dd.rows.toString());
                 if (dd.rows.length > 0) {
-                    var idx = $(this).data('row');
+                    var idx = $(this).find('div[data-row]').data('row');
                     console.log('idx= ' + idx);
+                    var indent = data2[idx].parent ? data2[idx + 1].parent == data2[idx].parent ? data2[idx].indent : data2[idx].indent + 1 : 1;
+                    var parent = data2[idx].parent ? data2[idx].parent : idx;
                     dd.rows.forEach(function (row) {
                         var item = dd.grid.getDataItem(row);
                         console.log('Working with ' + item.name);
                         var newRow = {
                             id: item.id + '_id_' + (idx + 1),
-                            indent: data2[idx + 1].indent ? data2[idx + 1].indent : 1,
-                            parent: idx,
+                            indent: indent,
+                            parent: parent,
                             name: item.name
                         };
                         dataView.insertItem(idx + 1, newRow);
