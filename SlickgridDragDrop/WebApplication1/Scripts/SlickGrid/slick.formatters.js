@@ -16,7 +16,8 @@
         "PercentComplete": PercentCompleteFormatter,
         "PercentCompleteBar": PercentCompleteBarFormatter,
         "YesNo": YesNoFormatter,
-        "Checkmark": CheckmarkFormatter
+        "Checkmark": CheckmarkFormatter,
+        "Multiformatter": Multiformatter
       }
     }
   });
@@ -56,4 +57,14 @@
   function CheckmarkFormatter(row, cell, value, columnDef, dataContext) {
     return value ? "<img src='../images/tick.png'>" : "";
   }
+
+  function Multiformatter(row, cell, columnValue, columnDef, dataContext) {
+        var setOfFormatter = columnDef.multiFormatter, value = columnValue;
+        if (setOfFormatter instanceof Array) {
+            $.each(setOfFormatter, function (index, formatter) {
+                value = formatter(row, cell, value, columnDef, dataContext);
+            });
+        }
+        return value;
+    }
 })(jQuery);
